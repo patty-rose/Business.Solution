@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Business.Wrappers;
+using Business.Filter;
 
 namespace Business.Controllers
 {
@@ -22,25 +24,39 @@ namespace Business.Controllers
       _db = db;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Shop>>> Get(string name, string shopType, string typeCategory)
-    {
-      var query = _db.Shops.AsQueryable();
+    //CRUD methods
+    // [HttpGet]
+    // public async Task<ActionResult<IEnumerable<Shop>>> Get(string name, string shopType, string typeCategory)
+    // {
+    //   var query = _db.Shops.AsQueryable();
 
-      if (name != null)
-      {
-        query = query.Where(entry => entry.Name == name);
-      }
-      if (shopType != null)
-      {
-        query = query.Where(entry => entry.ShopType == shopType);
-      }
-      if (typeCategory != null)
-      {
-        query = query.Where(entry => entry.TypeCategory == typeCategory);
-      }
+    //   if (name != null)
+    //   {
+    //     query = query.Where(entry => entry.Name == name);
+    //   }
+    //   if (shopType != null)
+    //   {
+    //     query = query.Where(entry => entry.ShopType == shopType);
+    //   }
+    //   if (typeCategory != null)
+    //   {
+    //     query = query.Where(entry => entry.TypeCategory == typeCategory);
+    //   }
       
-      return await query.ToListAsync();
+    //   return await query.ToListAsync();
+    // }
+
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] PaginationFilter filter)
+    {
+      // var route = Request.Path.Value;
+      var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+      var pagedData = await _db.Shops
+        .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+        .Take(validFilter.PageSize)
+        .ToListAsync();
+      var totalRecords = await _db.Shops.CountAsync();
+      return Ok(new PagedResponse<List<Shop>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
     }
 
     [HttpPost]
@@ -62,7 +78,7 @@ namespace Business.Controllers
           return NotFound();
       }
 
-      return shop;
+      return Ok(new Response<Shop>(shop));
     }
 
     [HttpPut("{id}")]
