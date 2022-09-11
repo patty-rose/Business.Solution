@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +44,20 @@ namespace Business
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
+        c.SwaggerDoc("v2", new OpenApiInfo { Title = "Business", Version = "v2" });
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "Business", Version = "v1" });
+      });
+
+      services.AddApiVersioning(options =>
+      {
+        options.AssumeDefaultVersionWhenUnspecified = true;
+        options.ReportApiVersions = true;
+        options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(2, 0);
+      });
+      services.AddVersionedApiExplorer(options =>
+      {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
       });
     }
 
@@ -54,7 +68,11 @@ namespace Business
       {
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Business v1"));
+        app.UseSwaggerUI(c => 
+        {
+          c.SwaggerEndpoint("/swagger/v2/swagger.json", "Business v2");
+          c.SwaggerEndpoint("/swagger/v1/swagger.json", "Business v1");
+        });
       }
 
       // app.UseHttpsRedirection();
