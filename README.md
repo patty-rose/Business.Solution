@@ -24,7 +24,7 @@ _This API is designed to allow for users to view, query, find a single entry, up
 * Open your terminal and navigate to the top of this directory
 * create a file called appsettings.json within the main project folder
 * add the following text to the file inserting your own DATABASE NAME, USER ID, and PASSWORD: 
->{
+````{
   "Logging": {
     "LogLevel": {
       "Default": "Information",
@@ -36,7 +36,7 @@ _This API is designed to allow for users to view, query, find a single entry, up
   "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;Port=3306;database=[DATABASE NAME HERE];uid=[USER ID HERE];pwd=[PASSWORD HERE];"
   }
-}
+}````
 * Navigate to ~/Business in your terminal.
 * Run the following commands:
 >dotnet ef database update
@@ -50,10 +50,13 @@ while the local host is successfully running you can access full CRUD functional
 
 ````https://localhost:5003/swagger/index.html````
 
-Business V2 is the default version, so whenever you do not specify V2 will be used. You can see on Swagger Business v2 is selected in the top right "Select a defintiion" dropdown. By clicking this dropdown you will be able to switch between Version 2 (V2) and Version 1 (V1).
-
 ![Swagger v2 screenshot](./swaggerv2.png)
 
+Business V2 is the default version, so whenever you do not specify V2 will be used. You can see on Swagger Business v2 is selected in the top right "Select a defintiion" dropdown. By clicking this dropdown you will be able to switch between Version 2 (V2) and Version 1 (V1).
+
+The only difference between v1 and v2 is that v1's GET shops method does not accept query parameters. Below you can see Swagger's ui displaying v1's api/Shops route options:
+
+![Swagger v1 GET route](./SwaggerV1Get.png)
 
 ## BROWSER
 ### GET: /api/Shops
