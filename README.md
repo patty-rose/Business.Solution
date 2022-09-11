@@ -2,7 +2,7 @@
 
 #### By _**Patty Otero**_
 
-#### _A practice web api with full CRUD functionality, response pagination and wrapper, and Swagger UI for a local business directory._
+#### _A practice web api with full CRUD functionality, response pagination and wrapper, versioning, and Swagger UI for a local business directory._
 
 ## Technologies Used
 
@@ -16,7 +16,7 @@
 ## Description
 _This project was created for Epicodus bootcamp to show proficiency in web APIs._
 
-_This API is designed to allow for users to view, query, find a single entry, update a single entry, or delete entries for a database of local businesses._
+_This API is designed to allow for users to view, query, find a single entry, update a single entry, or delete entries for a database of local businesses. There are two versions, to demonstrate versioning. V1 does not allow for the user to filter responses when using the Get route, while V2 does. Responses will include pagination and a wrapper displaying page routes and important information. You can explore this api with Swagger._
 
 ## Setup/Installation Requirements
 
@@ -42,14 +42,31 @@ _This API is designed to allow for users to view, query, find a single entry, up
 >dotnet ef database update
 >dotnet build
 >dotnet watch run
-* Once successfully running, you can access the api through your browser, Swagger, Postman or similar applications.
+* Once successfully running, you can access the api through your browser, Swagger, or API platforms like Postman.
 
 ## SWAGGER
+#### while the local host is successfully running you can access full CRUD functionality with the API by navigating in your browser to:
+````https://localhost:5003/swagger/index.html````
+#### Business V2 is the default version, so whenever you do not specify V2 will be used. You can see on Swagger Business v2 is selected in the top right "Select a defintiion" dropdown. By clicking this dropdown you will be able to switch between Version 2 (V2) and Version 1 (V1).
+![Swagger v2 screenshot](./swaggerv2.png)
+
 
 ## BROWSER
+### GET: /api/Shops
+### GET with query filter: /api/Shops?{schema key}={schema value}
+#### for example: https://localhost:5003/api/Shops?shopType=restaurant
+#### you can add as many individual queries as you would like to the url route.
+### GET by id: /api/Shops/{id}
+### DELETE by  id: /api/Shops/{id}
+
+
 
 ## POSTMAN
-
+#### using Postman while the local host is successfully running you can use these routes and the Postman options to access full CRUD functionality with the API.
+### GET: /api/Shops
+### GET with query filter: /api/Shops?{schema key}={schema value}
+### GET by id: /api/Shops/{id}
+### DELETE by  id: /api/Shops/{id}
 
 ## Known Bugs
 
