@@ -45,9 +45,13 @@ _This API is designed to allow for users to view, query, find a single entry, up
 * Once successfully running, you can access the api through your browser, Swagger, or API platforms like Postman.
 
 ## SWAGGER
-#### while the local host is successfully running you can access full CRUD functionality with the API by navigating in your browser to:
+
+while the local host is successfully running you can access full CRUD functionality with the API by navigating in your browser to:
+
 ````https://localhost:5003/swagger/index.html````
-#### Business V2 is the default version, so whenever you do not specify V2 will be used. You can see on Swagger Business v2 is selected in the top right "Select a defintiion" dropdown. By clicking this dropdown you will be able to switch between Version 2 (V2) and Version 1 (V1).
+
+Business V2 is the default version, so whenever you do not specify V2 will be used. You can see on Swagger Business v2 is selected in the top right "Select a defintiion" dropdown. By clicking this dropdown you will be able to switch between Version 2 (V2) and Version 1 (V1).
+
 ![Swagger v2 screenshot](./swaggerv2.png)
 
 
