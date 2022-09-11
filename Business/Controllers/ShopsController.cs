@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Business.Wrappers;
 using Business.Filter;
+using Business.Helpers;
+using Business.Services;
+
 
 namespace Business.Controllers
 {
@@ -17,11 +20,13 @@ namespace Business.Controllers
   {
     private readonly ILogger<ShopsController> _logger;
     private readonly BusinessContext _db;
+    private readonly IUriService uriService;
 
-    public ShopsController(ILogger<ShopsController> logger, BusinessContext db)
+    public ShopsController(ILogger<ShopsController> logger, BusinessContext db, IUriService uriService)
     {
       _logger = logger;
       _db = db;
+      this.uriService = uriService;
     }
 
     //CRUD methods
@@ -49,14 +54,15 @@ namespace Business.Controllers
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] PaginationFilter filter)
     {
-      // var route = Request.Path.Value;
+      var route = Request.Path.Value;
       var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
       var pagedData = await _db.Shops
         .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
         .Take(validFilter.PageSize)
         .ToListAsync();
       var totalRecords = await _db.Shops.CountAsync();
-      return Ok(new PagedResponse<List<Shop>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
+      var pagedReponse = PaginationHelper.CreatePagedReponse<Shop>(pagedData, validFilter, totalRecords, uriService, route);
+      return Ok(pagedReponse);
     }
 
     [HttpPost]
