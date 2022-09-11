@@ -30,27 +30,6 @@ namespace Business.Controllers
     }
 
     //CRUD methods
-    // [HttpGet]
-    // public async Task<ActionResult<IEnumerable<Shop>>> Get(string name, string shopType, string typeCategory)
-    // {
-    //   var query = _db.Shops.AsQueryable();
-
-    //   if (name != null)
-    //   {
-    //     query = query.Where(entry => entry.Name == name);
-    //   }
-    //   if (shopType != null)
-    //   {
-    //     query = query.Where(entry => entry.ShopType == shopType);
-    //   }
-    //   if (typeCategory != null)
-    //   {
-    //     query = query.Where(entry => entry.TypeCategory == typeCategory);
-    //   }
-      
-    //   return await query.ToListAsync();
-    // }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Shop>>> Get([FromQuery] PaginationFilter filter, string name, string shopType, string typeCategory)
     {
@@ -68,7 +47,7 @@ namespace Business.Controllers
       {
         query = query.Where(entry => entry.TypeCategory == typeCategory);
       }
-
+      //pagination and wrapper
       var route = Request.Path.Value;
       var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
       var pagedData = await query
@@ -80,27 +59,13 @@ namespace Business.Controllers
       return Ok(pagedReponse);
     }
 
-    // [HttpGet]
-    // public async Task<IActionResult> Get([FromQuery] PaginationFilter filter)
-    // {
-    //   var route = Request.Path.Value;
-    //   var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-    //   var pagedData = await _db.Shops
-    //     .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-    //     .Take(validFilter.PageSize)
-    //     .ToListAsync();
-    //   var totalRecords = await _db.Shops.CountAsync();
-    //   var pagedReponse = PaginationHelper.CreatePagedReponse<Shop>(pagedData, validFilter, totalRecords, uriService, route);
-    //   return Ok(pagedReponse);
-    // }
-
     [HttpPost]
     public async Task<ActionResult<Shop>> Post(Shop shop)
     {
       _db.Shops.Add(shop);
       await _db.SaveChangesAsync();
-
-      return CreatedAtAction(nameof(GetShop), new { id = shop.ShopId }, shop);
+      
+      return CreatedAtAction(nameof(GetShop), new { id = shop.ShopId }, new Response<Shop>(shop));
     }  
 
     [HttpGet("{id}")]
