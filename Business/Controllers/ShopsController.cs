@@ -55,14 +55,64 @@ namespace Business.Controllers
     [HttpGet("{id}")]
     public async Task<ActionResult<Shop>> GetShop(int id)
     {
-        var shop = await _db.Shops.FindAsync(id);
+      var shop = await _db.Shops.FindAsync(id);
 
-        if (shop == null)
-        {
-            return NotFound();
-        }
+      if (shop == null)
+      {
+          return NotFound();
+      }
 
-        return shop;
+      return shop;
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Shop shop)
+    {
+      if (id != shop.ShopId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(shop).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!ShopExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool ShopExists(int id)
+    {
+      return _db.Shops.Any(entry => entry.ShopId == id);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteShop(int id)
+    {
+      var shop = await _db.Shops.FindAsync(id);
+      if (shop == null)
+      {
+        return NotFound();
+      }
+
+      _db.Shops.Remove(shop);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
+    }
+
   }
 }
