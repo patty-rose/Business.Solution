@@ -43,5 +43,26 @@ namespace Business.Controllers
       return await query.ToListAsync();
     }
 
+    [HttpPost]
+    public async Task<ActionResult<Shop>> Post(Shop shop)
+    {
+      _db.Shops.Add(shop);
+      await _db.SaveChangesAsync();
+
+      return CreatedAtAction(nameof(GetShop), new { id = shop.ShopId }, shop);
+    }  
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Shop>> GetShop(int id)
+    {
+        var shop = await _db.Shops.FindAsync(id);
+
+        if (shop == null)
+        {
+            return NotFound();
+        }
+
+        return shop;
+    }
   }
 }
