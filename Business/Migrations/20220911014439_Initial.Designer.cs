@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Business.Migrations
 {
     [DbContext(typeof(BusinessContext))]
-    [Migration("20220910210548_Initial")]
+    [Migration("20220911014439_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,19 @@ namespace Business.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ShopType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4");
 
                     b.Property<string>("TypeCategory")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4");
 
                     b.HasKey("ShopId");
 
@@ -72,6 +78,48 @@ namespace Business.Migrations
                             Name = "Babydoll Pizza",
                             ShopType = "Restaurant",
                             TypeCategory = "Pizza"
+                        },
+                        new
+                        {
+                            ShopId = 6,
+                            Name = "New Seasons",
+                            ShopType = "Store",
+                            TypeCategory = "Grocery"
+                        },
+                        new
+                        {
+                            ShopId = 7,
+                            Name = "JoJo's",
+                            ShopType = "Restaurant",
+                            TypeCategory = "Fried Chicken"
+                        },
+                        new
+                        {
+                            ShopId = 8,
+                            Name = "People's Food Coop",
+                            ShopType = "Store",
+                            TypeCategory = "Grocery"
+                        },
+                        new
+                        {
+                            ShopId = 9,
+                            Name = "Academy",
+                            ShopType = "Theater",
+                            TypeCategory = "Film"
+                        },
+                        new
+                        {
+                            ShopId = 10,
+                            Name = "Arlene Schintzer",
+                            ShopType = "Concert Hall",
+                            TypeCategory = "Music"
+                        },
+                        new
+                        {
+                            ShopId = 11,
+                            Name = "The Laurelhurst Theater",
+                            ShopType = "Theater",
+                            TypeCategory = "Film"
                         });
                 });
 #pragma warning restore 612, 618
