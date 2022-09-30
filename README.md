@@ -61,7 +61,7 @@ Business V2 is the default version, so whenever you do not specify a version V2 
 
 If you select v1 and click on the bar that says GET /api/shops, you will see the parameters that v1 accepts. The only difference between v1 and v2 is that v1's GET shops method does not accept query parameters (other than paging and versioning). Below you can see Swagger's ui displaying v1's api/Shops route options:
 
-![Swagger v1 GET route](./SwaggerV1Get.png)
+![Swagger v1 GET route](./img/SwaggerV1Get.png)
 
 If you click "Try it out" you will be able to type in the Parameters table under the Description header. You may query the results by page number, page size (set to default and to max out at 5 to demonstrate pagination with a small number of database items), and api version (you can enter 1 or 2, if you do not specify a version it will default to v2).
 
@@ -69,11 +69,11 @@ If you click "Try it out" you will be able to type in the Parameters table under
 
 If you switch to v2 and select the GET /api/shops you will see that you have more options for parameters than in v1. Clicking on "Try it out", you will be able to edit the descriptions column.
 
-![Swagger v2 GET route](./SwaggerV2Get.png)
+![Swagger v2 GET route](./img/SwaggerV2Get.png)
 
 If you type "restaurant" into shopType and click "execute" it will return all shop objects with ShopType "restaurant":
 
-![Swagger v2 GET route](./SwaggerGetRestaurants.png)
+![Swagger v2 GET route](./img/SwaggerGetRestaurants.png)
 
 This response is wrapped with information about paging, including urls for first, last, next, and previous page. Then you can see all shop objects that meet your query specifications.
 
@@ -81,27 +81,27 @@ This response is wrapped with information about paging, including urls for first
 
 In Swagger select the bar that says GET /api/Shops/{id}. 
 
-![Swagger GET by id](./SwaggerGetId.png)
+![Swagger GET by id](./img/SwaggerGetId.png)
 
 You are required to enter an id number. Once entering an id number and selecting execute, the response will show the object with that id number.
 
-![Swagger GET by id response](./SwaggerGetIdSuccess.png)
+![Swagger GET by id response](./img/SwaggerGetIdSuccess.png)
 
 ### PUT: /api/Shops/{id}
 
 In Swagger select the bar that says PUT: /api/Shops/{id}. Select "Try it out" and enter the id of the object entry you would like to edit. You must fill in ALL information, even for parameters that will not be changed. You will be able to click on the Request Body field and edit the schema to match the edits you would like to make. 
 
-![Swagger PUT](./SwaggerPut.png)
+![Swagger PUT](./img/SwaggerPut.png)
 
 Once complete click "execute" to see your updated object.
 
-![Swagger PUT response](./SwaggerPutSuccess.png)
+![Swagger PUT response](./img/SwaggerPutSuccess.png)
 
 ### DELETE by  id: /api/Shops/{id}
 
 In Swagger select the bar that says DELETE: /api/Shops/{id}. 
 
-![Swagger Delete](./SwaggerDelete.png)
+![Swagger Delete](./img/SwaggerDelete.png)
 
 By submitting the id you would like removed and executing, that entry will be removed from the api database.
 
@@ -117,26 +117,26 @@ The only difference between v1 and v2 is that v1 cannot accept query parameters 
 
 Navigate to the following url in your browser to access v1: `https://localhost:5003/api/Shops?api-version=1` 
 
-![browser GET v1](./BrowserV1.png)
+![browser GET v1](./img/BrowserV1.png)
 
 #### v2: `https://localhost:5003/api/Shops`
 And here you can see the url and the response for v2, or without including a version query. 
 
-![browser GET v2](./Browser.png)
+![browser GET v2](./img/Browser.png)
 
 ### GET with query filter: /api/Shops?{schema key}={schema value}
 
 for example: 
 `https://localhost:5003/api/Shops?shopType=restaurant`
 
-![browser GET restaurant](./browserRestaurant.png)
+![browser GET restaurant](./img/browserRestaurant.png)
 
 you can add as many individual queries as you would like to the url route.
 
 ### GET by id: /api/Shops/{id}
 for example: `https://localhost:5003/api/Shops/1`
 
-![browser GET id](./BrowserGetId.png)
+![browser GET id](./img/BrowserGetId.png)
 
 ### PUT and DELETE:
 PUT and DELETE are not accessible in the browser, you need Swagger, Postman, a client side application, or similar platform that can send bodies and headers.
