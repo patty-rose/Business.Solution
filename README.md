@@ -41,9 +41,9 @@ This API is designed to allow for users to view, query, find a single entry, upd
 ```
 5. Navigate to ~/Business in your terminal.
 6. Run the following commands:
-`dotnet ef database update`
-`dotnet build`
-`dotnet watch run`
+```dotnet ef database update```
+```dotnet build```
+```dotnet watch run```
 
 7. Once successfully running, you can access the api through your browser, Swagger, or API platforms like Postman.
 
@@ -53,7 +53,7 @@ while the local host is successfully running you can access full CRUD functional
 
 `https://localhost:5003/swagger/index.html`
 
-![Swagger v2 screenshot](./swaggerv2.png)
+![Swagger v2 screenshot](./img/swaggerv2.png)
 
 Business V2 is the default version, so whenever you do not specify a version V2 will be used. You can see on Swagger Business v2 is selected in the top right "Select a defintiion" dropdown. By clicking this dropdown you will be able to switch between Version 2 (V2) and Version 1 (V1).
 
